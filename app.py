@@ -12,12 +12,15 @@ if up:
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix="." + up.name.split(".")[-1]); tmp.write(up.read()); path = tmp.name
 use_llm = st.sidebar.toggle("Use LLM planner (needs AYD_API_KEY)", value=False)
 ask = Ask(path, planner=LLMPlanner() if use_llm else RuleBasedPlanner())
-st.sidebar.write("**Schema**"); st.sidebar.json(ask.schema)
+st.sidebar.write("**Schema**")
+st.sidebar.json(ask.schema)
 q = st.text_input("Question", "Why did revenue drop in Pune? Show revenue by month")
 if q:
     ans = ask.ask(q)
     c1, c2 = st.columns([3, 2])
     c1.pyplot(ans.chart())
-    c2.subheader("Reasoning"); [c2.markdown(f"- {r}") for r in ans.plan.reasoning]
-    c2.subheader("SQL"); c2.code(ans.plan.sql, language="sql")
-    st.dataframe(ans.df, use_container_width=True)
+    c2.subheader("Reasoning")
+    for r in ans.plan.reasoning:
+        c2.markdown(f"- {r}")
+    c2.subheader("SQL"); c2.code(ans.plan.sql, language="sql", wrap_lines=True)
+    st.dataframe(ans.df, width="stretch")
