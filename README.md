@@ -62,4 +62,4 @@ flowchart LR
 Issues and pull requests are welcome. Please run `pytest -q` before opening a PR, keep changes small and focused, and add a test for any new behaviour. Bigger ideas: open an issue first so we can agree on the shape.
 
 ## Licence
-MIT. Built by [Shashwat Kumar](https://shashwat-kumar.github.io/shashwat-analytics/).
+MIT. Built by [Shashwat Kumar](https://readsigil.com/).
